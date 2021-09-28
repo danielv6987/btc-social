@@ -1,0 +1,20 @@
+version: 2.1
+
+orbs:
+  aws-s3: circleci/aws-s3@3.0
+
+jobs:
+  build:
+    working_directory: /src
+    docker:
+      - image: node:12.16-alpine
+    steps:
+      - checkout
+      - run: yarn install
+      - run: yarn build
+      - run: ls
+
+workflows:
+  build-deploy:
+    jobs:
+      - build
