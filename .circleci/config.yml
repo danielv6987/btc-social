@@ -16,7 +16,7 @@ jobs:
           fingerprints:
             - fb:80:9e:b3:ad:15:55:54:46:3d:f1:35:f3:bf:44:1f
       - run: ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
-      - run: yarn install
+      - run: --mount=type=ssh yarn install
       - run: yarn build
       - run: ls
 
