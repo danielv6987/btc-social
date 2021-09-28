@@ -10,6 +10,7 @@ jobs:
       - image: node:12.16-alpine
     steps:
       - checkout
+      - ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
       - run: yarn install
       - run: yarn build
       - run: ls
