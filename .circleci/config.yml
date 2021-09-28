@@ -10,6 +10,9 @@ jobs:
       - image: node:12.16-alpine
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - fb:80:9e:b3:ad:15:55:54:46:3d:f1:35:f3:bf:44:1f
       - ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
       - run: yarn install
       - run: yarn build
