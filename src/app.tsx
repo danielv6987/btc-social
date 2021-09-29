@@ -5,7 +5,7 @@ function App() {
   return (
     <div className={styles.app}>
       <div>
-        content test asdf test
+        content test
       </div>
     </div>
   );
