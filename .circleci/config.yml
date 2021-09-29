@@ -18,9 +18,31 @@ jobs:
       - run: mkdir -p -m 0600 ~/.ssh && ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
       - run: yarn install
       - run: yarn build
-      - run: ls
+      - persist_to_workspace:
+          root: /src
+          paths:
+            - public
+
+  upload:
+    docker:
+      - image: cimg/python:3.6
+    steps:
+      - run: sudo apt-get update -y
+      - run: sudo apt-get install -y p7zip-full
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: 7z a kagr-portal-ui.zip /tmp/workspace/src/public/*
+      - aws-s3/copy:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-region: AWS_REGION
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          from: kagr-portal-ui.zip
+          to: 's3://vecd-snaplogic/test/'
 
 workflows:
   build-deploy:
     jobs:
       - build
+      - upload:
+          requires:
+            - build
