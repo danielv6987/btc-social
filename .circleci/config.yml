@@ -9,7 +9,6 @@ jobs:
       - image: cimg/node:12.16
     steps:
       - checkout
-      - run: pwd
       - run: sudo apt-get update -y
       - run: sudo apt-get install ssh -y
       - add_ssh_keys:
@@ -22,6 +21,14 @@ jobs:
           root: /home/circleci/project
           paths:
             - public
+
+  scan:
+    docker:
+      - image: cimg/node:12.16
+    steps:
+      - checkout
+      - run: npm install -g sonarqube-scanner
+      - run: sonar-scanner -D sonar.host.url=SONAR_HOST_URL -D sonar.projectKey=SONAR_PROJECT_KEY -D sonar.login=SONAR_TOKEN -D sonar.branch.name=CIRCLE_BRANCH
 
   upload:
     docker:
