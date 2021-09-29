@@ -31,7 +31,7 @@ jobs:
       - run: sudo apt-get install -y p7zip-full
       - attach_workspace:
           at: /tmp/workspace
-      - run: 7z a kagr-portal-ui.zip /tmp/workspace/src/public/*
+      - run: 7z a kagr-portal-ui.zip /tmp/workspace/public/*
       - aws-s3/copy:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-region: AWS_REGION
