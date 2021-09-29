@@ -53,7 +53,8 @@ jobs:
     steps:
       - checkout
       - run: yarn install
-      - snyk/scan
+      - snyk/scan:
+          fail-on-issues: false
 
 workflows:
   build-deploy:
