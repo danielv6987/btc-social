@@ -79,6 +79,8 @@ workflows:
           context: builds
       - secure:
           context: builds
+          requires:
+            - build
       - upload:
           context: builds
           requires:
