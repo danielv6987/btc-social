@@ -7,7 +7,7 @@ jobs:
   build:
     working_directory: /src
     docker:
-      - image: node:12.16-alpine
+      - image: cimg/node:12.16
     steps:
       - checkout
       - run: apk update

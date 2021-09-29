@@ -15,7 +15,6 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
-    "kagr-ui": "git+ssh://git@bitbucket.org/kagrllc/kagr-ui.git#v1.1.0"
   },
   "devDependencies": {
     "@types/node": "^16.9.6",
