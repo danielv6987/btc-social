@@ -11,7 +11,7 @@ jobs:
       - checkout
       - run: pwd
       - run: sudo apt-get update -y
-      - run: apt-get ssh -y
+      - run: apt-get install ssh -y
       - add_ssh_keys:
           fingerprints:
             - "fb:80:9e:b3:ad:15:55:54:46:3d:f1:35:f3:bf:44:1f"
