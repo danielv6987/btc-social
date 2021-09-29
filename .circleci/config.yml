@@ -69,19 +69,12 @@ jobs:
     steps:
       - attach_workspace:
           at: /home/circleci
-      - run: yarn install
 
 workflows:
   build-deploy:
     jobs:
       - build
-      - scan:
-          context: builds
       - secure:
-          context: builds
-          requires:
-            - build
-      - upload:
           context: builds
           requires:
             - build
