@@ -34,7 +34,9 @@ jobs:
           paths:
             - node_modules
       - run: pwd
+      - run: cd build && ls
       - run: yarn build
+      - run: cd build && ls
       - persist_to_workspace:
           root: /home/circleci/project
           paths:
