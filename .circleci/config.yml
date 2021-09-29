@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   aws-s3: circleci/aws-s3@3.0
+  snyk: snyk/snyk@1.1.1
 
 jobs:
   build:
@@ -46,14 +47,22 @@ jobs:
           from: kagr-portal-ui.zip
           to: 's3://vecd-snaplogic/test/'
 
+  secure:
+    docker:
+      - image: cimg/node:12.16
+    steps:
+      - checkout
+      - run: yarn install
+      - snyk/scan
+
 workflows:
   build-deploy:
     jobs:
       - build
       - scan:
           context: builds
-          requires:
-            - build
+      - secure:
+          context: builds
       - upload:
           context: builds
           requires:
