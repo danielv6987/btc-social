@@ -102,5 +102,5 @@ workflows:
       - upload:
           context: builds
           requires:
-            - scam
+            - scan
             - secure
