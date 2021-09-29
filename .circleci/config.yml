@@ -14,9 +14,9 @@ jobs:
       - run: apk add --no-cache openssh-client git
       - add_ssh_keys:
           fingerprints:
-            - fb:80:9e:b3:ad:15:55:54:46:3d:f1:35:f3:bf:44:1f
-      - run: ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
-      - run: --mount=type=ssh yarn install
+            - "fb:80:9e:b3:ad:15:55:54:46:3d:f1:35:f3:bf:44:1f"
+      - run: mkdir -p -m 0600 ~/.ssh && ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
+      - run: yarn install
       - run: yarn build
       - run: ls
 
