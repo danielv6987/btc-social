@@ -67,11 +67,9 @@ jobs:
     docker:
       - image: cimg/node:12.16
     steps:
-      - checkout
+      - attach_workspace:
+          at: /home/circleci/project
       - run: yarn install
-      - snyk/scan:
-          fail-on-issues: false
-          project: '${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}'
 
 workflows:
   build-deploy:
