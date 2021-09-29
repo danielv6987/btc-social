@@ -68,7 +68,7 @@ jobs:
       - image: cimg/node:12.16
     steps:
       - attach_workspace:
-          at: /home/circleci/project
+          at: /home/circleci
       - run: yarn install
 
 workflows:
