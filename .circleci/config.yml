@@ -43,7 +43,8 @@ jobs:
     docker:
       - image: cimg/node:12.16
     steps:
-      - checkout
+      - attach_workspace:
+          at: /home/circleci
       - run: sudo npm install -g sonarqube-scanner
       - run: sonar-scanner -D sonar.organization="$SONAR_ORG_KEY" -D sonar.host.url="$SONAR_HOST_URL" -D sonar.projectKey="$SONAR_PROJECT_KEY" -D sonar.login="$SONAR_TOKEN" -D sonar.branch.name="$CIRCLE_BRANCH"
 
@@ -69,12 +70,37 @@ jobs:
     steps:
       - attach_workspace:
           at: /home/circleci
+      - restore_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          key: node-v1-{{ checksum "package.json" }}
+      - run: yarn install
+      - save_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - snyk/scan:
+          fail-on-issues: false
+          project: '${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}'
 
 workflows:
   build-deploy:
     jobs:
       - build
+      - scan:
+          context: builds
+          requires:
+            - build
       - secure:
           context: builds
           requires:
             - build
+      - upload:
+          context: builds
+          requires:
+            - scam
+            - secure
