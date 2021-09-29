@@ -5,11 +5,11 @@ orbs:
 
 jobs:
   build:
-    working_directory: /src
     docker:
       - image: cimg/node:12.16
     steps:
       - checkout
+      - run: pwd
       - run: apk update
       - run: apk add --no-cache openssh-client git
       - add_ssh_keys:
