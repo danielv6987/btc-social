@@ -34,11 +34,7 @@ jobs:
           key: node-v1-{{ checksum "package.json" }}
           paths:
             - node_modules
-      - run: pwd
-      - run: parcel --version
-      - run: ls
       - run: yarn build
-      - run: cd build && ls
       - persist_to_workspace:
           root: /home/circleci/project
           paths:
