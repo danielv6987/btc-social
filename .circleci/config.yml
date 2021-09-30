@@ -8,6 +8,7 @@ jobs:
   build:
     docker:
       - image: cimg/node:12.16
+    resource_class: large
     steps:
       - checkout
       - persist_to_workspace:
@@ -89,22 +90,14 @@ jobs:
             - node_modules
       - snyk/scan:
           fail-on-issues: false
+          additional-arguments: "--remote-repo-url='Group_name'"
           project: '${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}'
 
 workflows:
   build-deploy:
     jobs:
       - build
-      - scan:
-          context: builds
-          requires:
-            - build
       - secure:
           context: builds
           requires:
             - build
-      - upload:
-          context: builds
-          requires:
-            - scan
-            - secure
