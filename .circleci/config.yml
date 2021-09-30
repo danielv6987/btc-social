@@ -86,7 +86,7 @@ jobs:
             - node_modules
       - snyk/scan:
           fail-on-issues: false
-          additional-arguments: "--remote-repo-url='${SNYKE_GROUP}'"
+          additional-arguments: '--remote-repo-url="${SNYKE_GROUP}"'
           project: '${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}'
 
 workflows:
