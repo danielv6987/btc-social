@@ -20,7 +20,7 @@ jobs:
       - run: echo $SSH_FINGERPRINT
       - add_ssh_keys:
           fingerprints:
-            - "$SSH_FINGERPRINT"
+            - "${SSH_FINGERPRINT}"
       - run: mkdir -p -m 0600 ~/.ssh && ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
       - restore_cache:
           key: yarn-v3-{{ checksum "yarn.lock" }}
