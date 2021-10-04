@@ -19,7 +19,7 @@ jobs:
       - run: sudo apt-get install ssh -y
       - add_ssh_keys:
           fingerprints:
-            - "fb:80:9e:b3:ad:15:55:54:46:3d:f1:35:f3:bf:44:1f"
+            - SSH_FINGERPRINT
       - run: mkdir -p -m 0600 ~/.ssh && ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
       - restore_cache:
           key: yarn-v3-{{ checksum "yarn.lock" }}
@@ -71,6 +71,10 @@ jobs:
     steps:
       - attach_workspace:
           at: /home/circleci
+      - restore_cache:
+          key: yarn-v3-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          key: node-v3-{{ checksum "package.json" }}
       - run: yarn install
       - snyk/scan:
           fail-on-issues: false
@@ -82,7 +86,7 @@ workflows:
   build-deploy:
     jobs:
       - build
-      - secure:
+      - upload:
           context: builds
           requires:
             - build
