@@ -15,23 +15,23 @@ jobs:
           root: /home/circleci
           paths:
             - project
-      - run: sudo apt-get update -y
-      - run: sudo apt-get install ssh -y
+      - run: sudo apt-get update
+      - run: sudo apt-get install openssh-client
       - add_ssh_keys:
           fingerprints:
             - "fb:80:9e:b3:ad:15:55:54:46:3d:f1:35:f3:bf:44:1f"
       - run: mkdir -p -m 0600 ~/.ssh && ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
       - restore_cache:
-          key: yarn-v3-{{ checksum "yarn.lock" }}
+          key: yarn-v4-{{ checksum "yarn.lock" }}
       - restore_cache:
-          key: node-v3-{{ checksum "package.json" }}
+          key: node-v4-{{ checksum "package.json" }}
       - run: yarn install
       - save_cache:
-          key: yarn-v3-{{ checksum "yarn.lock" }}
+          key: yarn-v4-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
       - save_cache:
-          key: node-v3-{{ checksum "package.json" }}
+          key: node-v4-{{ checksum "package.json" }}
           paths:
             - node_modules
       - run: yarn build
