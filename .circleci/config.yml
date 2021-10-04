@@ -22,16 +22,16 @@ jobs:
             - "fb:80:9e:b3:ad:15:55:54:46:3d:f1:35:f3:bf:44:1f"
       - run: mkdir -p -m 0600 ~/.ssh && ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
       - restore_cache:
-          key: yarn-v1-{{ checksum "yarn.lock" }}
+          key: yarn-v3-{{ checksum "yarn.lock" }}
       - restore_cache:
-          key: node-v1-{{ checksum "package.json" }}
+          key: node-v3-{{ checksum "package.json" }}
       - run: yarn install
       - save_cache:
-          key: yarn-v1-{{ checksum "yarn.lock" }}
+          key: yarn-v3-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
       - save_cache:
-          key: node-v1-{{ checksum "package.json" }}
+          key: node-v3-{{ checksum "package.json" }}
           paths:
             - node_modules
       - run: yarn build
@@ -72,18 +72,10 @@ jobs:
       - attach_workspace:
           at: /home/circleci
       - restore_cache:
-          key: yarn-v1-{{ checksum "yarn.lock" }}
+          key: yarn-v3-{{ checksum "yarn.lock" }}
       - restore_cache:
-          key: node-v1-{{ checksum "package.json" }}
+          key: node-v3-{{ checksum "package.json" }}
       - run: yarn install
-      - save_cache:
-          key: yarn-v1-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-      - save_cache:
-          key: node-v1-{{ checksum "package.json" }}
-          paths:
-            - node_modules
       - snyk/scan:
           fail-on-issues: false
           additional-arguments: '--remote-repo-url="${CIRCLE_PROJECT_REPONAME}"'
