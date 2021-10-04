@@ -71,10 +71,6 @@ jobs:
     steps:
       - attach_workspace:
           at: /home/circleci
-      - restore_cache:
-          key: yarn-v3-{{ checksum "yarn.lock" }}
-      - restore_cache:
-          key: node-v3-{{ checksum "package.json" }}
       - run: yarn install
       - snyk/scan:
           fail-on-issues: false
