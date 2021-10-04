@@ -85,7 +85,8 @@ jobs:
 workflows:
   build-deploy:
     jobs:
-      - build
+      - build:
+          context: builds
       - upload:
           context: builds
           requires:
