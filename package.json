@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.12.3",
+    "kagr-ui": "git+ssh://git@bitbucket.org/kagrllc/kagr-ui.git#v1.1.0",
     "@reduxjs/toolkit": "^1.6.1",
     "axios": "^0.21.4",
     "react": "^17.0.2",
