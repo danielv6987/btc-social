@@ -67,6 +67,7 @@ jobs:
     steps:
       - attach_workspace:
           at: /home/circleci
+      - run: ls
       - run: yarn install
       - snyk/scan:
           fail-on-issues: false
