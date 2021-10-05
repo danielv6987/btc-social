@@ -41,11 +41,15 @@ jobs:
             - public
 
   scan:
+    working_directory: /home/circleci/project/project
     docker:
       - image: cimg/node:12.16
     steps:
+      - run: cd / && ls
+      - run: ls
       - attach_workspace:
-          at: /home/circleci
+          at: /home/circleci/project
+      - run: ls
       - run: sudo npm install -g sonarqube-scanner
       - run: sonar-scanner -D sonar.organization=$SONAR_ORG_KEY -D sonar.host.url=$SONAR_HOST_URL -D sonar.projectKey=$SONAR_PROJECT_KEY -D sonar.login=$SONAR_TOKEN -D sonar.branch.name=$CIRCLE_BRANCH
 
