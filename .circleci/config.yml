@@ -62,11 +62,8 @@ jobs:
           at: /tmp/workspace
       - run: 7z a -p$AWS_ZIP_PW kagr-portal-ui.zip /tmp/workspace/public/*
       - aws-s3/copy:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-region: AWS_REGION
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           from: kagr-portal-ui.zip
-          to: '$AWS_ACCESS_URL'
+          to: $AWS_ACCESS_URL
 
   secure:
     docker:
