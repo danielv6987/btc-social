@@ -63,7 +63,7 @@ jobs:
       - run: 7z a -p$AWS_ZIP_PW kagr-portal-ui.zip /tmp/workspace/public/*
       - aws-s3/copy:
           from: kagr-portal-ui.zip
-          to: $AWS_ACCESS_URL
+          to: '$AWS_ACCESS_URL/$CIRCLE_BRANCH/'
 
   secure:
     docker:
@@ -78,9 +78,9 @@ jobs:
       - run: yarn install
       - snyk/scan:
           fail-on-issues: false
-          additional-arguments: '--remote-repo-url="${CIRCLE_PROJECT_REPONAME}"'
-          organization: '${SNYK_ORG}'
-          project: '${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}'
+          additional-arguments: '--remote-repo-url="$CIRCLE_PROJECT_REPONAME"'
+          organization: '$SNYK_ORG'
+          project: '$CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH'
 
 workflows:
   build-deploy:
@@ -88,6 +88,10 @@ workflows:
       - build:
           context: builds
       - scan:
+          context: builds
+          requires:
+            - build
+      - secure:
           context: builds
           requires:
             - build
