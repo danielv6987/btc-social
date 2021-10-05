@@ -79,7 +79,7 @@ jobs:
       - snyk/scan:
           fail-on-issues: false
           additional-arguments: '--remote-repo-url="$CIRCLE_PROJECT_REPONAME"'
-          organization: '$SNYK_ORG'
+          organization: $SNYK_ORG
           project: '$CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH'
 
 workflows:
