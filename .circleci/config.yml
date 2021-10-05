@@ -63,7 +63,7 @@ jobs:
       - run: 7z a -p$AWS_ZIP_PW kagr-portal-ui.zip /tmp/workspace/public/*
       - aws-s3/copy:
           from: kagr-portal-ui.zip
-          to: '$AWS_ACCESS_URL/$CIRCLE_BRANCH'
+          to: '$AWS_ACCESS_URL/$CIRCLE_BRANCH/'
 
   secure:
     docker:
