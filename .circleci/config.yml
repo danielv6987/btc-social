@@ -63,7 +63,7 @@ jobs:
       - run: 7z a -p$AWS_ZIP_PW kagr-portal-ui.zip /tmp/workspace/public/*
       - aws-s3/copy:
           from: kagr-portal-ui.zip
-          to: '$AWS_ACCESS_URL/$CIRCLE_BRANCH/'
+          to: '$AWS_ACCESS_URL/$CIRCLE_BRANCH'
 
   secure:
     docker:
@@ -72,9 +72,9 @@ jobs:
       - attach_workspace:
           at: /home/circleci
       - restore_cache:
-          key: yarn-v3-{{ checksum "yarn.lock" }}
+          key: yarn-v4-{{ checksum "yarn.lock" }}
       - restore_cache:
-          key: node-v3-{{ checksum "package.json" }}
+          key: node-v4-{{ checksum "package.json" }}
       - run: yarn install
       - snyk/scan:
           fail-on-issues: false
