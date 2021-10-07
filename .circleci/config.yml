@@ -17,19 +17,7 @@ jobs:
             - project
       - run: sudo apt-get update
       - run: sudo apt-get install openssh-client
-      - restore_cache:
-          key: yarn-v6-{{ checksum "yarn.lock" }}
-      - restore_cache:
-          key: node-v6-{{ checksum "package.json" }}
       - run: yarn install
-      - save_cache:
-          key: yarn-v4-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-      - save_cache:
-          key: node-v4-{{ checksum "package.json" }}
-          paths:
-            - node_modules
       - run: yarn build
       - persist_to_workspace:
           root: /home/circleci/project
