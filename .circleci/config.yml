@@ -17,7 +17,7 @@ jobs:
             - project
       - run: sudo apt-get update
       - run: sudo apt-get install openssh-client
-      - run: yarn install
+      - run: mkdir -p -m 0600 ~/.ssh && ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
       - run: yarn build
       - persist_to_workspace:
           root: /home/circleci/project
