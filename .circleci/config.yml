@@ -17,14 +17,10 @@ jobs:
             - project
       - run: sudo apt-get update
       - run: sudo apt-get install openssh-client
-      - add_ssh_keys:
-          fingerprints:
-            - "fb:80:9e:b3:ad:15:55:54:46:3d:f1:35:f3:bf:44:2f"
-      - run: mkdir -p -m 0600 ~/.ssh && ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts
       - restore_cache:
-          key: yarn-v5-{{ checksum "yarn.lock" }}
+          key: yarn-v6-{{ checksum "yarn.lock" }}
       - restore_cache:
-          key: node-v5-{{ checksum "package.json" }}
+          key: node-v6-{{ checksum "package.json" }}
       - run: yarn install
       - save_cache:
           key: yarn-v4-{{ checksum "yarn.lock" }}
